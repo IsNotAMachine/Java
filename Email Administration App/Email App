@@ -158,9 +158,11 @@ public class email
 	}
 	
 	// set alternate email
-	public void setAlternateEmail(String altEmail)
+	public void setAlternateEmail(String username, String domainName, String domain)
 	{
-
+		String altEmail;
+		altEmail = username + "@" + domainName + "." +  domain;
+		alternateEmail = altEmail;
 		this.alternateEmail = altEmail;
 		
 	}
