@@ -1,0 +1,215 @@
+package emailApp;
+import java.util.Scanner;
+
+public class email 
+{
+	// Don't want people to access to set to private 
+	private String firstName;
+	private String lastName;
+	private String password;
+	private String department; 
+	private String email;
+	private int mailboxCapacity = 500;
+	private int defaultPasswordLength = 12;
+	private String alternateEmail;
+	private String company = "Green Point Solutions";	
+	
+	/* 
+	 * Constructor to receive the first and last name 
+	 * ask for department 
+	 * generate a random password 
+	 * set the mailbox capacity
+	 * set the alternate email 
+	 * change the password 
+	 * 
+	 */
+	
+	// constructor
+	public email(String firstName, String lastName)
+	{
+		// setting properties 
+		this.firstName = firstName;
+		this.lastName = lastName;
+		System.out.printf("New Employee: %s %s", this.firstName, this.lastName);
+		
+		// call method asking for department 
+		this.department = setDepartment();
+		System.out.printf("\nDepartment: %s", this.department);
+		
+		// call method that returns random password
+		this.password = randomPassword(defaultPasswordLength);
+		System.out.printf("\nYour password is: %s", this.password);
+		
+		// combine elements to generate email 
+		this.email = newEmail(this.firstName, this.lastName, this.department, this.company);
+		System.out.printf("\nYour company email is: %s", this.email);
+	
+	}
+	
+	// ask for department 
+	private String setDepartment()
+	{
+		boolean answered = false;
+		int deptChoice = -1;
+		String choice = null;
+		Scanner scanner = new Scanner(System.in);
+		do 
+		{
+			printMenu();
+			/*
+			 * Scanner in = new Scanner(System.in);
+			deptChoice = in.nextInt();
+			getInt(deptChoice);
+			 * 
+			 * 
+			 */
+			
+			deptChoice =  getInt(scanner);
+			
+			if (deptChoice >= 0 && deptChoice <=3)
+			{
+				answered = true;
+			}
+			else
+			{
+				System.out.println("Selection invalid. Please try again.");
+			}
+			
+		}while(!answered);
+		
+		switch (deptChoice)
+		{
+			case 1:
+				return choice = "Sales";
+			case 2:
+				return choice = "Development";
+			case 3:
+				return choice = "Accounting";
+			case 4:
+				return choice = "None";
+		}
+		return choice;
+		
+	}
+	
+	// print menu
+	static void printMenu()
+	{
+		System.out.print("\nEnter the department\n1 for sales\n2 for development\n3 for accounting\n0 for none\nEnter department code: ");
+	}
+	
+	//testing integer input 
+	static int getInt(Scanner scanner)
+	{
+
+		while(true)
+		{
+			int result;
+			try 
+			{
+				result = scanner.nextInt();
+				return result;
+			}catch (Exception e)
+			{
+				scanner.nextLine();
+				System.out.println("Not an integer. Please try again.");
+				printMenu();
+			}
+		}
+	}
+			
+		
+		
+	// random password 
+	private String randomPassword(int length)
+	{
+		String passwordSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()?";
+		// create an array 
+		char[] password = new char[length];
+		
+		// generate random number within the score of password set and take that character and put it in the password array 
+		for (int i = 0; i < length; i++)
+		{
+			int rand = (int) (Math.random() * passwordSet.length());
+			password[i] = passwordSet.charAt(rand);
+		}
+		return new String(password);
+		
+	}
+	
+	// creating new email 
+	private String newEmail(String firstName, String lastName, String department, String company)
+	{
+		String newEmail;
+		String period = ".";
+		String atDepartment = "@" + department + ".";
+		String atCompany = company.strip().replaceAll("\\s", "") + ".com";
+
+		newEmail = firstName.toLowerCase() + period + lastName.toLowerCase() + atDepartment + atCompany;
+
+		return newEmail;
+	}
+	
+	
+	// set mailbox capacity
+	public void setMailBoxCapacity(int capacity)
+	{
+		this.mailboxCapacity = capacity;
+	}
+	
+	// set alternate email
+	public void setAlternateEmail(String altEmail)
+	{
+
+		this.alternateEmail = altEmail;
+		
+	}
+	
+	// Change password 
+	public void changePassword(String password)
+	{
+		this.password = password;
+	}
+	
+	// Get methods
+	//mailbox capacity
+	public int getMailboxCapacity()
+	{
+		return mailboxCapacity;
+	}
+	
+	// alternate email
+	public String getAlternateEmail()
+	{
+		return alternateEmail;
+	}
+	
+	//password
+	public String getPassword() 
+	{
+		return password;
+	}
+	
+	// show info for employee
+	public String showInfo()
+	{
+		
+		if(alternateEmail == null)
+		{
+			String display1 = "\nDISPLAY\nName: " + firstName +
+					"\nCompany email: " + email +
+					"\nMailbox Capacity: " + mailboxCapacity + "mb" +
+					"\nPassword: " + password;
+			return display1;
+		}
+		else
+		{
+			String display2 = "\nDISPLAY\nName: " + firstName +
+					"\nCompany email: " + email +
+					"\nAlternte email: " + alternateEmail +
+					"\nMailbox Capacity: " + mailboxCapacity + "mb" + 
+					"\nPassword: " + password;
+			return display2;
+		}		
+	}
+}
