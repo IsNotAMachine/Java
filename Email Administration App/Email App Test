@@ -6,8 +6,8 @@ public class emailApp
 	public static void main(String[] args) 
 	{
 		email em1 = new email("John", "Smith");
-		em1.setAlternateEmail("mb@email.com");
-		//System.out.printf("\nAlternate email: %s ",em1.getAlternateEmail());
+		em1.setAlternateEmail("alteremail", "company", "org");
+		System.out.printf("\nAlternate email: %s ",em1.getAlternateEmail());
 		em1.setMailBoxCapacity(1000);
 		System.out.printf("\nMailbox capacity %smb",em1.getMailboxCapacity());
 		em1.changePassword("dsfahjkl3!@E##DS");
@@ -18,3 +18,4 @@ public class emailApp
 	}
 
 }
+
